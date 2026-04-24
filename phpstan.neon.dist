@@ -1,9 +1,0 @@
-parameters:
-    level: 5
-    paths:
-        - Model
-        - registration.php
-    excludePaths:
-        - Test/*
-        - vendor/*
-    treatPhpDocTypesAsCertain: false
