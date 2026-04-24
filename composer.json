@@ -1,0 +1,67 @@
+{
+    "name": "bradsearch/magento-verkter-price-adapter",
+    "description": "Verkter-specific bridge: maps BradSearch PriceCalculatorInterface to Magenmagic ProductPrices helper so indexed prices match the storefront productPrice GraphQL query.",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "keywords": ["magento2", "bradsearch", "verkter", "magenmagic", "price"],
+    "require": {
+        "php": "~7.4.0||~8.1.0||~8.2.0||~8.3.0||~8.4.0",
+        "magento/framework": "*",
+        "magento/module-catalog": "*",
+        "magento/module-store": "*",
+        "bradsearch/magento-extension": "*"
+    },
+    "require-dev": {
+        "captainhook/captainhook": "^5.22",
+        "captainhook/plugin-composer": "^5.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "magento/magento-coding-standard": "*",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.6 || ^10.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "vimeo/psalm": "^6.0 <6.5"
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "Magenmagic\\BradSearchPrice\\": ""
+        },
+        "exclude-from-classmap": ["Test/"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Magenmagic\\BradSearchPrice\\Test\\": "Test/",
+            "Magenmagic\\ProductPrices\\": "Test/Stubs/ProductPrices/"
+        }
+    },
+    "repositories": {
+        "magento": {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": "@register-phpcs-paths",
+        "post-update-cmd": "@register-phpcs-paths",
+        "register-phpcs-paths": "phpcs --config-set installed_paths vendor/magento/magento-coding-standard,vendor/phpcsstandards/phpcsutils,vendor/magento/php-compatibility-fork",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "psalm": "psalm",
+        "test": "phpunit",
+        "check": [
+            "@phpcs",
+            "@phpstan",
+            "@psalm",
+            "@test"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "captainhook/plugin-composer": true,
+            "magento/composer-dependency-version-audit-plugin": true
+        },
+        "sort-packages": true
+    }
+}
