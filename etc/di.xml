@@ -7,7 +7,7 @@
     <type name="BradSearch\SearchGraphQl\Model\Sync\ChangeFilter">
         <arguments>
             <argument name="attributeProviders" xsi:type="array">
-                <item name="verkter_free_shipping_markup" xsi:type="object">Magenmagic\BradSearchPrice\Model\ShippingRateAttributeProvider</item>
+                <item name="verkter_price_inputs" xsi:type="object">Magenmagic\BradSearchPrice\Model\PriceInputAttributeProvider</item>
             </argument>
         </arguments>
     </type>

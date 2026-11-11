@@ -8,14 +8,15 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * The weight and length attributes behind Verkter's free-shipping markup.
+ * The attributes Verkter's price helper reads from the default-scope product.
  *
- * The calculated price adds that markup (Magenmagic\FreeShipping\Helper\Rate), so a weight or
- * length change moves the indexed price. Neither attribute is searchable or filterable, so
- * real-time sync would not see the change without this provider. The config paths and the
- * fallbacks mirror Rate::getProductWeight() and Rate::getProductLength().
+ * Magenmagic\ProductPrices\Helper\Price takes the regular price and the tax class from a copy of
+ * the product loaded at store 0, and adds a free-shipping markup computed from its weight and
+ * length (Magenmagic\FreeShipping\Helper\Rate). Real-time sync hashes these at default scope, so
+ * a change there is sent even when a store view has its own value. The weight and length config
+ * paths and fallbacks mirror Rate::getProductWeight() and Rate::getProductLength().
  */
-class ShippingRateAttributeProvider implements ProductHashAttributeProviderInterface
+class PriceInputAttributeProvider implements ProductHashAttributeProviderInterface
 {
     private const CONFIG_WEIGHT_ATTRIBUTE = 'mmfreeshipping/attr_code/weight';
     private const CONFIG_LENGTH_ATTRIBUTE = 'mmfreeshipping/attr_code/length';
@@ -35,7 +36,7 @@ class ShippingRateAttributeProvider implements ProductHashAttributeProviderInter
         $weight = (string)$this->scopeConfig->getValue(self::CONFIG_WEIGHT_ATTRIBUTE, ScopeInterface::SCOPE_STORES, $storeId);
         $length = (string)$this->scopeConfig->getValue(self::CONFIG_LENGTH_ATTRIBUTE, ScopeInterface::SCOPE_STORES, $storeId);
 
-        $codes = [$weight !== '' ? $weight : 'weight'];
+        $codes = ['price', 'tax_class_id', $weight !== '' ? $weight : 'weight'];
         if ($length !== '') {
             $codes[] = $length;
         }
