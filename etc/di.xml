@@ -3,4 +3,12 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="BradSearch\SearchGraphQl\Api\PriceCalculatorInterface"
                 type="Magenmagic\BradSearchPrice\Model\MagenmagicPriceCalculator"/>
+
+    <type name="BradSearch\SearchGraphQl\Model\Sync\ChangeFilter">
+        <arguments>
+            <argument name="attributeProviders" xsi:type="array">
+                <item name="verkter_price_inputs" xsi:type="object">Magenmagic\BradSearchPrice\Model\PriceInputAttributeProvider</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

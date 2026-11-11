@@ -10,6 +10,16 @@ This guarantees that the `calculated_price` BradSearch indexes is the same value
 the storefront returns from the `productPrice` GraphQL query — including country
 scope, currency, special prices, and tax handling.
 
+It also registers `PriceInputAttributeProvider` on the extension's real-time
+sync `ChangeFilter`. The price helper reads the regular price, the tax class and
+the free-shipping weight and length (named in `mmfreeshipping/attr_code/*`) from
+the default-scope product. The provider makes the sync hash these at default
+scope, so a change there is sent even when a store view has its own value, and
+a weight or length change is sent although neither attribute is searchable or
+filterable. Install this release
+together with the extension release that adds `ProductHashAttributeProviderInterface`:
+on an older extension, `setup:di:compile` fails on the missing interface.
+
 ## Why this exists as its own package
 
 The bridge is client-specific (it depends on Verkter's `Magenmagic_ProductPrices`),
