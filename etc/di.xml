@@ -3,4 +3,12 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="BradSearch\SearchGraphQl\Api\PriceCalculatorInterface"
                 type="Magenmagic\BradSearchPrice\Model\MagenmagicPriceCalculator"/>
+
+    <type name="BradSearch\SearchGraphQl\Model\Sync\ChangeFilter">
+        <arguments>
+            <argument name="attributeProviders" xsi:type="array">
+                <item name="verkter_free_shipping_markup" xsi:type="object">Magenmagic\BradSearchPrice\Model\ShippingRateAttributeProvider</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
