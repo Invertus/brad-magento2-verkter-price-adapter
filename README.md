@@ -10,6 +10,14 @@ This guarantees that the `calculated_price` BradSearch indexes is the same value
 the storefront returns from the `productPrice` GraphQL query — including country
 scope, currency, special prices, and tax handling.
 
+It also registers `ShippingRateAttributeProvider` on the extension's real-time
+sync `ChangeFilter`. The price includes Verkter's free-shipping markup, which
+depends on the weight and length attributes named in `mmfreeshipping/attr_code/*`.
+Neither is searchable or filterable, so without the provider a weight or length
+change would not reach BradSearch until the nightly sync. Install this release
+together with the extension release that adds `ProductHashAttributeProviderInterface`:
+on an older extension, `setup:di:compile` fails on the missing interface.
+
 ## Why this exists as its own package
 
 The bridge is client-specific (it depends on Verkter's `Magenmagic_ProductPrices`),
