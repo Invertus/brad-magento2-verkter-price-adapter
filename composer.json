@@ -5,7 +5,7 @@
     "license": "proprietary",
     "keywords": ["magento2", "bradsearch", "verkter", "magenmagic", "price"],
     "require": {
-        "php": "~7.4.0||~8.1.0||~8.2.0||~8.3.0||~8.4.0",
+        "php": "~7.4.0||~8.1.0||~8.2.0||~8.3.0||~8.4.0||~8.5.0",
         "magento/framework": "*",
         "magento/module-catalog": "*",
         "magento/module-store": "*",
